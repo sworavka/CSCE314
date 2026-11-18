@@ -1,0 +1,43 @@
+/* Texas A&M Maroon Theme for Example 2 */
+.root {
+    -fx-font-family: "Maple Mono", "Helvetica Neue", sans-serif;
+    -fx-background-color: #f7f9fa;
+}
+
+.title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #500000; /* Texas A&M Maroon */
+}
+
+.counter-label {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+}
+
+.button {
+    -fx-background-color: #500000;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #3b0000;
+}
+
+.reset-button {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333333;
+}
+
+.reset-button:hover {
+    -fx-background-color: #cccccc;
+}
+
+#checkBox {
+    -fx-background-color: #00F000;
+}

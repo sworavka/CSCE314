@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "/home/sworav/Documents/Code/314/javafx-sdk-27/lib/*.jar"
+        ],
+        "exclude": []
+    }
+}

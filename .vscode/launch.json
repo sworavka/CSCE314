@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "FxCheck",
+            "request": "launch",
+            "mainClass": "fxCheck",
+            "projectName": "",
+            "vmArgs": "--module-path /home/sworav/Documents/Code/314/javafx-sdk-27/lib --add-modules javafx.controls"
+        }
+    ]
+}
