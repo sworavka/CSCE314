@@ -1,4 +1,3 @@
-// package HW4;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +16,6 @@ public class StudyRoom {
         this.capacity = capacity;
         this.isReserved = false;
         this.features= new HashSet<>();
-        // this.reservedBy = null; //check if autograder complains
     }
     public String getId(){ return id;}
 
@@ -53,7 +51,4 @@ public class StudyRoom {
     public synchronized boolean isReserved() {
         return isReserved;
     }
-        
-
-    
 }

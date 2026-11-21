@@ -1,4 +1,8 @@
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,56 +16,35 @@ public class Main {
         catalog.getRoom("ZACH103").addFeature("Monitor");
         catalog.getRoom("ZACH103").addFeature("Accessible");
 
-        //Display room inventory
-        for(StudyRoom room: catalog.getAllRooms()){
-            System.out.println("Room ID: " + room.getId() + ", Name: " + room.getName() + ", Capacity: " + room.getCapacity() + ", Features: " + room.getFeatures());
-        }
+        System.out.println();
+        StudyRoom myRoom = catalog.getRoom("ZACH101");
+        
+        ReservationTask task1 = new ReservationTask(myRoom, "Sam");
+        ReservationTask task2 = new ReservationTask(myRoom, "Maria");
+        ReservationTask task3 = new ReservationTask(catalog.getRoom("ZACH102"), "Taylor");
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ArrayList<Future<String>> futures = new ArrayList<>();
+        futures.add(executor.submit(task1));
+        futures.add(executor.submit(task2));
+        futures.add(executor.submit(task3));
+        executor.shutdown();
 
-        String roomID;
-        String user1;
-        String user2;
-        if(args.length >= 1){
-            roomID = args[0];
-            if(args.length >= 2){
-                user1 = args[1];
-                if(args.length >= 3){
-                    user2 = args[2];
-                }else{
-                    user2 = "user2";
-                }
-            }else{
-                user1 = "user1";
-                user2 = "user2";
+        for(Future<String> future : futures){
+            try{
+                String result = future.get();
+                System.out.println(result);
+            } catch (ExecutionException e) {
+                System.out.println("Unable to retrieve results.");
+            } catch (InterruptedException e) {
+                System.out.println("Thread interrupted.");
             }
-        }else{
-            roomID = "Zach101";
-            user1 = "user1";
-            user2 = "user2";
         }
 
-        catalog.addRoom(new StudyRoom(roomID, "name", 0));
-    
-        StudyRoom myRoom = catalog.getRoom(roomID);
-        
-        
-        ReservationTask task1 = new ReservationTask(myRoom, user1);
-        ReservationTask task2 = new ReservationTask(myRoom, user2);
-
-        Thread t1 = new Thread(task1);
-        Thread t2 = new Thread(task2);
-        t1.start();
-        t2.start();
-        try{
-            t1.join();
-            t2.join();
-
-        }catch (InterruptedException e){//we shouldnt ever have to execute this
-            System.out.println(e.getMessage());
+        if(catalog.getRoom("ZACH101").isReserved()){
+            System.out.println("ZACH101 is reserved by " + catalog.getRoom("ZACH101").getReservedBy());
         }
-        System.out.println("was reservation 1 successful? "+ task1.wasSuccessful());
-        System.out.println("was reservation 2 successful? "+ task2.wasSuccessful());
-    
-    
-    
+        if(catalog.getRoom("ZACH102").isReserved()){
+            System.out.println("ZACH102 is reserved by " + catalog.getRoom("ZACH102").getReservedBy());
+        }
     }
 }

@@ -1,4 +1,6 @@
-public class ReservationTask implements Runnable {
+import java.util.concurrent.Callable;
+
+public class ReservationTask implements Callable<String>{
     private StudyRoom room;
     private String user;
     private boolean reservation_successful;
@@ -10,12 +12,12 @@ public class ReservationTask implements Runnable {
 
     }
     @Override 
-    public void run(){
-        if(room.isReserved()){
-            reservation_successful = true;
+    public String call(){
+        reservation_successful = room.reserve(user);
+        if(reservation_successful){
+            return user + " reserved " + room.getId();
         }else{
-            room.reserve(user);
-            reservation_successful = false;
+            return user + " could not reserve " + room.getId();
         }
         
     }
