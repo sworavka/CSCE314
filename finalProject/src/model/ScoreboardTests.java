@@ -1,3 +1,5 @@
+package model;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,8 +41,8 @@ class ScoreboardTests {
         scoreboard.setTeamNames("Team A", "Team B");
         scoreboard.addPointsToHome(1);
         assertEquals(1, scoreboard.getHomeScore());
-        assertEquals("Extra Point", scoreboard.validateScore(1));
-        assertEquals("Home +1 (Extra Point)", scoreboard.history.peek().toString());
+        assertEquals("Extra point", scoreboard.validateScore(1));
+        assertEquals("Home +1 (Extra point)", scoreboard.getLastOperation());
     }
     @Test
     void testAddTwoPointsToHome() {
@@ -49,7 +51,7 @@ class ScoreboardTests {
         scoreboard.addPointsToHome(2);
         assertEquals(2, scoreboard.getHomeScore());
         assertEquals("Safety", scoreboard.validateScore(2));
-        assertEquals("Home +2 (Safety)", scoreboard.history.peek().toString());
+        assertEquals("Home +2 (Safety)", scoreboard.getLastOperation());
     }
     @Test
     void testAddThreePointsToHome() {
@@ -57,8 +59,8 @@ class ScoreboardTests {
         scoreboard.setTeamNames("Team A", "Team B");
         scoreboard.addPointsToHome(3);
         assertEquals(3, scoreboard.getHomeScore());
-        assertEquals("Field Goal", scoreboard.validateScore(3));
-        assertEquals("Home +3 (Field Goal)", scoreboard.history.peek().toString());
+        assertEquals("Field goal", scoreboard.validateScore(3));
+        assertEquals("Home +3 (Field goal)", scoreboard.getLastOperation());
     }
     @Test
     void testAddSixPointsToHome() {
@@ -67,7 +69,7 @@ class ScoreboardTests {
         scoreboard.addPointsToHome(6);
         assertEquals(6, scoreboard.getHomeScore());
         assertEquals("Touchdown", scoreboard.validateScore(6));
-        assertEquals("Home +6 (Touchdown)", scoreboard.history.peek().toString());
+        assertEquals("Home +6 (Touchdown)", scoreboard.getLastOperation());
     }
     @Test
     void testAddOnePointToAway() {
@@ -75,8 +77,8 @@ class ScoreboardTests {
         scoreboard.setTeamNames("Team A", "Team B");
         scoreboard.addPointsToAway(1);
         assertEquals(1, scoreboard.getAwayScore());
-        assertEquals("Extra Point", scoreboard.validateScore(1));
-        assertEquals("Away +1 (Extra Point)", scoreboard.history.peek().toString());
+        assertEquals("Extra point", scoreboard.validateScore(1));
+        assertEquals("Away +1 (Extra point)", scoreboard.getLastOperation());
     }
     @Test
     void testAddTwoPointsToAway() {
@@ -85,7 +87,7 @@ class ScoreboardTests {
         scoreboard.addPointsToAway(2);
         assertEquals(2, scoreboard.getAwayScore());
         assertEquals("Safety", scoreboard.validateScore(2));
-        assertEquals("Away +2 (Safety)", scoreboard.history.peek().toString());
+        assertEquals("Away +2 (Safety)", scoreboard.getLastOperation());
     }
     @Test
     void testAddThreePointsToAway() {
@@ -93,8 +95,8 @@ class ScoreboardTests {
         scoreboard.setTeamNames("Team A", "Team B");
         scoreboard.addPointsToAway(3);
         assertEquals(3, scoreboard.getAwayScore());
-        assertEquals("Field Goal", scoreboard.validateScore(3));
-        assertEquals("Away +3 (Field Goal)", scoreboard.history.peek().toString());
+        assertEquals("Field goal", scoreboard.validateScore(3));
+        assertEquals("Away +3 (Field goal)", scoreboard.getLastOperation());
     }
     @Test
     void testAddSixPointsToAway() {
@@ -103,7 +105,7 @@ class ScoreboardTests {
         scoreboard.addPointsToAway(6);
         assertEquals(6, scoreboard.getAwayScore());
         assertEquals("Touchdown", scoreboard.validateScore(6));
-        assertEquals("Away +6 (Touchdown)", scoreboard.history.peek().toString());
+        assertEquals("Away +6 (Touchdown)", scoreboard.getLastOperation());
     }
 
     // Consecutive scoring operations.
@@ -203,8 +205,7 @@ class ScoreboardTests {
     @Test
     void testAddDisallowedPoints() {
         Scoreboard scoreboard = new Scoreboard();
-        scoreboard.setHomeTeamName("Team A");
-        scoreboard.setAwayTeamName("Team B");
+        scoreboard.setTeamNames("Team A","Team B");
         assertThrows(IllegalArgumentException.class, () -> {
             scoreboard.addPointsToHome(7);
         });
@@ -227,8 +228,7 @@ class ScoreboardTests {
     @Test
     void testAddStringAsPoints() {
         Scoreboard scoreboard = new Scoreboard();
-        scoreboard.setHomeTeamName("Team A");
-        scoreboard.setAwayTeamName("Team B");
+        scoreboard.setTeamNames("Team A","Team B");
         assertThrows(IllegalArgumentException.class, () -> {
             scoreboard.addPointsToHome(Integer.parseInt("abc"));
         });

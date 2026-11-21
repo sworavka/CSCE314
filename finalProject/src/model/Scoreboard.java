@@ -3,17 +3,6 @@ package model;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-private interface Command {
-    void execute();
-    void undo();
-    String toString();
-}
-
-public void execute(Command command){
-    command.execute();
-    history.push(command);
-}
-
 public class Scoreboard {
 
     private String homeTeamName = null;
@@ -122,5 +111,14 @@ public class Scoreboard {
         }
     }
 
-    public static void main(String[] args){}
+    private interface Command {
+        void execute();
+        void undo();
+        String toString();
+    }
+
+    private void execute(Command command){
+        command.execute();
+        history.push(command);
+    }
 }
